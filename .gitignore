@@ -1,0 +1,34 @@
+# --- Build output ---
+build/
+sdkconfig
+sdkconfig.old
+
+# --- Component manager (re-fetched on build) ---
+managed_components/
+dependencies.lock
+
+# --- IDF / toolchain leftovers ---
+.espressif/
+flash_project_args
+flasher_args.json
+
+# --- IDE / editor ---
+.vscode/
+.idea/
+*.code-workspace
+.cache/
+compile_commands.json
+.clangd/
+
+# --- Python venvs sometimes created in-tree ---
+.venv/
+venv/
+
+# --- OS noise ---
+.DS_Store
+Thumbs.db
+
+# --- Keep these (do NOT ignore): ---
+# sdkconfig.defaults      -> your curated H2/Thread config
+# partitions.csv          -> if you have a custom partition table
+# main/idf_component.yml  -> component manifest

@@ -1,0 +1,44 @@
+menu "Coffee Maker"
+    config COFFEE_MAKER_GPIO_IN
+        int "GPIO pin number for coffee maker status input (source of truth)"
+        default 2
+        help
+            Digital input. HIGH = coffee maker physically on, LOW = physically off.
+            This pin is the source of truth for the OnOff attribute.
+
+    config COFFEE_MAKER_GPIO_OUT
+        int "GPIO pin number for coffee maker toggle output"
+        default 4
+        help
+            Digital output. A pulse of COFFEE_MAKER_TOGGLE_PULSE_MS toggles the
+            coffee maker's on/off state. Idle level is LOW.
+
+    config COFFEE_MAKER_TOGGLE_PULSE_MS
+        int "Toggle pulse duration (ms)"
+        default 200
+        range 50 10000
+        help
+            Duration of the HIGH pulse driven on COFFEE_MAKER_GPIO_OUT to toggle
+            the coffee maker.
+
+    config COFFEE_MAKER_VERIFY_DELAY_MS
+        int "Delay after a commanded toggle before re-checking GPIO IN (ms)"
+        default 1000
+        range 200 5000
+        help
+            If the status input still doesn't match what was commanded after this
+            delay (following the end of the toggle pulse), the OnOff attribute is
+            force-corrected back to the value read from the status input.
+
+    config USER_BUTTON_GPIO
+        int "GPIO pin number for factory reset button"
+        default 0 if IDF_TARGET_ESP32 || IDF_TARGET_ESP32S3
+        default 9
+        help
+            Set GPIO pin value for target chip for factory reset button.
+
+    config USER_BUTTON_LEVEL
+        int "GPIO level when factory reset button is active"
+        default 0
+        range 0 1
+endmenu
